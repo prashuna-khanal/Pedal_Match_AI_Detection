@@ -1,0 +1,17 @@
+frame,player,shot_type,ball_x,ball_y,ball_direction
+38,0,Backhand,,,None
+39,0,Backhand,,,None
+102,0,Forehand,,,None
+190,1,Backhand,,,None
+191,1,Backhand,,,None
+204,0,Backhand,,,None
+205,0,Backhand,,,None
+206,0,Backhand,,,None
+222,3,Backhand,,,None
+246,2,Backhand,,,None
+247,2,Backhand,,,None
+248,2,Backhand,,,None
+249,2,Backhand,,,None
+250,2,Backhand,,,None
+255,2,Backhand,,,None
+274,2,Backhand,,,None

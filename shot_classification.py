@@ -15,33 +15,33 @@ class ShotClassifier:
             
         for player_idx, pose in enumerate(list_of_poses):
             # Index 12 is RIGHT_SHOULDER, 11 is LEFT_SHOULDER, 16 is RIGHT_WRIST
-            right_shoulder = pose[12]
-            left_shoulder = pose[11]
-            right_wrist = pose[16]
+            # Index 24 is RIGHT_HIP, 23 is LEFT_HIP
+            right_shoulder = pose.landmark[12]
+            left_shoulder = pose.landmark[11]
+            right_wrist = pose.landmark[16]
+            right_hip = pose.landmark[24]
+            left_hip = pose.landmark[23]
             
             # Visibility threshold
-            visibility_threshold = 0.5
-            # MediaPipe tasks API provides a visibility score for each landmark
+            visibility_threshold = 0.2
             if (getattr(right_shoulder, 'visibility', 1.0) < visibility_threshold or 
                 getattr(left_shoulder, 'visibility', 1.0) < visibility_threshold or 
-                getattr(right_wrist, 'visibility', 1.0) < visibility_threshold):
+                getattr(right_wrist, 'visibility', 1.0) < visibility_threshold or
+                getattr(right_hip, 'visibility', 1.0) < visibility_threshold):
                 continue
                 
             shot_type = "None"
             
-            # Rule 1: Smash - if wrist is significantly higher than the shoulder
-            # (Y value is smaller, since 0 is top)
-            if right_wrist.y < right_shoulder.y - 0.1:
+            # Rule 1: Smash - wrist is raised VERY high above the shoulder
+            if right_wrist.y < right_shoulder.y - 0.08:
                 shot_type = "Smash"
                 
-            # Assuming the player is facing AWAY from the camera (typical broadcast angle):
-            # Right shoulder has a larger X value than left shoulder.
-            # Rule 2: Forehand - wrist is extended to the right of the right shoulder
-            elif right_wrist.x > right_shoulder.x + 0.05:
+            # Rule 2: Forehand - wrist extended right AND raised above the hip (not just resting at side)
+            elif right_wrist.x > right_shoulder.x + 0.04 and right_wrist.y < right_hip.y:
                 shot_type = "Forehand"
                 
-            # Rule 3: Backhand - wrist is brought across the body, to the left of the left shoulder
-            elif right_wrist.x < left_shoulder.x - 0.05:
+            # Rule 3: Backhand - wrist crossed over to left shoulder AND raised above hip
+            elif right_wrist.x < left_shoulder.x - 0.02 and right_wrist.y < left_hip.y:
                 shot_type = "Backhand"
                 
             if shot_type != "None":
