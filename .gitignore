@@ -1,11 +1,22 @@
 # Large input videos
 data/*.mp4
 .vscode/
+
 # Python cache
 __pycache__/
 *.pyc
-*.pyo   
+*.pyo
 *.pyd
 
+# Virtual environment
 env/
+venv/
 .env
+
+# Output files (large video)
+output/*.mp4
+output/*.avi
+
+# OS files
+Thumbs.db
+.DS_Store
