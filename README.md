@@ -40,3 +40,6 @@ python main.py
 
 The script will open a preview window showing the tracking in real-time. Press `q` to stop early.
 Once completed, check the `output/` folder for your `classification_results.csv`.
+
+# Output Video
+https://drive.google.com/file/d/1Ck7WReqRgmSus-s1Nlpvfeom05gJnq_e/view?usp=sharing
